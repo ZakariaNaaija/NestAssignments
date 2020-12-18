@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Like, Repository } from 'typeorm';
+import { Equal, In, Like, Repository } from 'typeorm';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { CritereDto } from './dto/critere.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
@@ -29,7 +29,7 @@ export class TodoService {
         const todos = await this.TodoRepository.find(
         {
           description:Like(`%${critereTodo.chaine}%`),
-          statut:In([TodoStatusEnum.actif,TodoStatusEnum.waiting,TodoStatusEnum.actif])        
+          statut:Equal(critereTodo.statut)        
         });
         if (todos[0])
           return todos[0];
