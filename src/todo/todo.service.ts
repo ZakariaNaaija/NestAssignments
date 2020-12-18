@@ -69,7 +69,7 @@ export class TodoService {
             id:+id,
             ...newTodo
         })
-        if(todo) {
+        if(!todo) {
             new NotFoundException(`le todo d'id ${id} n'existe pas`);
         }
         return await this.TodoRepository.save(todo);
